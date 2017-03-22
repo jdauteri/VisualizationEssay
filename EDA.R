@@ -35,9 +35,9 @@ nnv %>%
   mutate(total_vote = sum(Vote)) %>% 
   filter(year >= "1802")
 
-#governor per state per year
+#governor in maryland between 1809-1821
 nnv %>%
-  filter(State == "Maryland",
+  filter(State == "New Jersey",
          Office == "Governor") %>% 
   mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
   group_by(year, Name, Affiliation, County) %>%
@@ -45,16 +45,6 @@ nnv %>%
   group_by(year) %>%
   mutate(total_vote = sum(Vote)) %>% 
   ggplot(aes(x = year, y = Vote, color = Name)) +
-  geom_line()
-
-nnv %>%
-  filter(State == "Maryland",
-         Name == "Edward Lloyd") %>% 
-  mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
-  group_by(year, Name, Affiliation, County) %>%
-  summarize(Vote = sum(Vote)) %>%
-  group_by(year) %>%
-  mutate(total_vote = sum(Vote)) %>% 
-  ggplot(aes(x = year, y = Vote, color = Name)) +
-  geom_line()
+  geom_line() +
+  geom_point()
     

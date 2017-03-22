@@ -21,7 +21,45 @@ nnv <- read_tsv("all-votes.tsv")
 ```
 
 ```{r, echo=FALSE}
+nnv %>%
+  filter(State == "New Jersey",
+         Office == "Governor") %>% 
+  mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
+  group_by(year, Name, Affiliation, County) %>%
+  summarize(Vote = sum(Vote)) %>%
+  group_by(year) %>%
+  mutate(total_vote = sum(Vote)) %>% 
+  ggplot(aes(x = year, y = Vote, color = Name)) +
+  geom_line() +
+  geom_point()
 ```
 
 ```{r, echo=FALSE}
+nnv %>%
+  filter(State == "New Jersey",
+         Office == "Governor") %>% 
+  mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
+  group_by(year, Name, Affiliation, County) %>%
+  summarize(Vote = sum(Vote)) %>%
+  group_by(year) %>%
+  mutate(total_vote = sum(Vote)) %>% 
+  filter(year >= "1800", year <= "1805") %>% 
+  ggplot(aes(x = year, y = Vote, color = Name)) +
+  geom_line() +
+  geom_point()
+```
+
+```{r, echo=FALSE}
+nnv %>%
+  filter(State == "New Jersey",
+         Office == "Governor") %>% 
+  mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
+  group_by(year, Name, Affiliation, County) %>%
+  summarize(Vote = sum(Vote)) %>%
+  group_by(year) %>%
+  mutate(total_vote = sum(Vote)) %>% 
+  filter(year >= "1810", year <= "1815") %>% 
+  ggplot(aes(x = year, y = Vote, color = Name)) +
+  geom_line() +
+  geom_point()
 ```
