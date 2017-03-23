@@ -20,46 +20,56 @@ if (!file.exists("all-votes.tsv")) {
 nnv <- read_tsv("all-votes.tsv")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 nnv %>%
   filter(State == "New Jersey",
          Office == "Governor") %>% 
   mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
-  group_by(year, Name, Affiliation, County) %>%
+  group_by(year, Name) %>%
   summarize(Vote = sum(Vote)) %>%
-  group_by(year) %>%
-  mutate(total_vote = sum(Vote)) %>% 
+  filter(year >= "1795", year <= "1815") %>% 
   ggplot(aes(x = year, y = Vote, color = Name)) +
   geom_line() +
-  geom_point()
+  geom_point() +
+  labs(title = "New Jersey Gubernatorial Elections, 1795-1815",
+         subtitle = "Tracking Federalist and Democratic-Republican Affiliations in New Jersey state politics in the Early Republic",
+         x = "Year",
+         y = "Vote Count",
+         color = "Candidate")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 nnv %>%
   filter(State == "New Jersey",
          Office == "Governor") %>% 
   mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
-  group_by(year, Name, Affiliation, County) %>%
+  group_by(year, Name) %>%
   summarize(Vote = sum(Vote)) %>%
-  group_by(year) %>%
-  mutate(total_vote = sum(Vote)) %>% 
   filter(year >= "1800", year <= "1805") %>% 
   ggplot(aes(x = year, y = Vote, color = Name)) +
   geom_line() +
-  geom_point()
+  geom_point() +
+  labs(title = "New Jersey Gubernatorial Elections, 1800-1805",
+         subtitle = "Tracking the Contest between Joseph Bloomfield (Democratic-Republican) and Richard Stockton (Federalist)",
+         x = "Year",
+         y = "Vote Count",
+         color = "Candidate")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 nnv %>%
   filter(State == "New Jersey",
          Office == "Governor") %>% 
   mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
-  group_by(year, Name, Affiliation, County) %>%
+  group_by(year, Name) %>%
   summarize(Vote = sum(Vote)) %>%
-  group_by(year) %>%
-  mutate(total_vote = sum(Vote)) %>% 
   filter(year >= "1810", year <= "1815") %>% 
   ggplot(aes(x = year, y = Vote, color = Name)) +
   geom_line() +
-  geom_point()
+  geom_point() +
+    labs(title = "New Jersey Gubernatorial Elections, 1812-1815",
+         subtitle = "Tracking the Contest Between Aaron Ogden (Federalist) and William S. Pennington (Democratic-Republican)",
+         x = "Year",
+         y = "Vote Count",
+         color = "Candidate")
 ```
