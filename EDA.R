@@ -47,4 +47,18 @@ nnv %>%
   ggplot(aes(x = year, y = Vote, color = Name)) +
   geom_line() +
   geom_point()
+
+#1805-1810 competition
+nnv %>%
+  filter(State == "New Jersey",
+         Office == "Governor") %>% 
+  mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
+  group_by(year, Name, Affiliation, County) %>%
+  summarize(Vote = sum(Vote)) %>%
+  group_by(year) %>%
+  mutate(total_vote = sum(Vote)) %>% 
+  filter(year >= "1800", year <= "1805") %>% 
+  ggplot(aes(x = year, y = Vote, color = Name)) +
+  geom_line() +
+  geom_point()
     
