@@ -1,9 +1,10 @@
 ---
-title: "A Visualization Essay Exploring the Gubernatorial Contests between Democratic-Republican and Federalist Candiates, 1795-1815"
+title: "A Visualization Essay Exploring the New Jersey Gubernatorial Contests between Democratic-Republican and Federalist Candiates, 1795-1815"
 author: "Jessica Dauterive"
 date: "3/21/2017"
 output: html_document
 ---
+This visualization essay will use the New Nations Votes dataset to explore the New Jersey gubernatorial elections between 1795-1815. The existence of this dataset, and the ability to easily manipulate and visualize the data contained in it, allow for new insights and questions about election contests in early America. This process--manipulating and visualizating election data--reveals trends in New Jersey's early gubernatorial elections that warrant a closer look.
 
 ```{r setup, include=FALSE}
 library(tidyverse)
@@ -38,6 +39,8 @@ nnv %>%
          color = "Candidate")
 ```
 
+The above visualization reveals the results of gubernatorial elections in New Jersey from the years 1795 to 1815. From this wide angle view, several trends are evident. One, it is clear that gubernatorial races in this early period of New Jersey's history consisted of relatively extended contests between two main candidates: once from 1801-1804, and again from 1812-1815. Two, although it is clear that one candidate in each of the major contest periods generally maintained a majority of support, there are certain elections that deviate from this trend and invite further consideration. Finally, although this dataset has incomplete information regarding candidates' party affiliations, some quick secondary research reveals that this chart is ultimately about the contest between Democratic-Republicans and Federalists for state power in New Jersey. To further understand early New Jersey politics, this essay will zoom in on each of the main contest periods and explore how the political careers of each candidate intersected with the political history of the state and the nation.
+
 ```{r, echo=FALSE, warning=FALSE}
 nnv %>%
   filter(State == "New Jersey",
@@ -56,6 +59,8 @@ nnv %>%
          color = "Candidate")
 ```
 
+This graph pictured above tracks the gubernatorial contest from 1801-1804 between Joseph Bloomfield (Democratic-Republican) and Richard Stockton (Federalist). This graph as a whole represents New Jersey's move from a block of Federalist governors since the state's founding, towards Democratic-Republican leadership shortly after the election of Thomas Jefferson. Although the Democratic-Republican party often found its strongest support in southern, agricultural states, New Jersey's relative lack of manufacturing, as compared to its neighbors in the northeast, led to its alignment with Democratic-Republican ideals. The 1802 election, in which Bloomfield and Stockton received an equal number of votes, at first might suggest some axiety towards this shift in political affiliation. However, the state appointed John Lambert to serve as governor until the following election, and thus maintained New Jersey's new alliance with the Democratic-Republicans. The following two elections, in 1803 and 1804, reveal the solid decrease in Federalist sentiments in the state, and the steady rise of Democratic-Republicanism. Joseph Bloomfield served as governor of New Jersey until the election of 1812, when he left the position to take command of the New York defense during the War of 1812.
+
 ```{r, echo=FALSE, warning=FALSE}
 nnv %>%
   filter(State == "New Jersey",
@@ -63,7 +68,7 @@ nnv %>%
   mutate(year = as.integer(str_extract(id, "\\d{4}"))) %>%
   group_by(year, Name) %>%
   summarize(Vote = sum(Vote)) %>%
-  filter(year >= "1810", year <= "1815") %>% 
+  filter(year >= "1812", year <= "1815") %>% 
   ggplot(aes(x = year, y = Vote, color = Name)) +
   geom_line() +
   geom_point() +
@@ -73,3 +78,5 @@ nnv %>%
          y = "Vote Count",
          color = "Candidate")
 ```
+
+With the departure of Bloomfield, a new contest began between Aaron Ogden (Federalist) and William S. Pennington (Democratic-Republican). Ogden, in the 1812 election, managed to wrest power from the Democratic-Republicans and became New Jersey's first Federalist governor in over a decade. This is likely due to increasing anxiety and dissension around Madison's push towards war. However, this power shift is short-lived, as Pennington regained Democratic-Republican rule of New Jersey in the 1813 election. Pennington would go on to serve until 1815, and would be followed by two more Democratic-Republican governors. However, in 1817, as is foreshadowed by the points coming closer together at the end of this graph, Federalist Isaac Halstead Williamson was elected governor and ushered back in the state's Federalist roots. Williamson went on to hold this seat for the next twelve years, until the dissolution of the Federalist party. Despite this return to Federalism in 1817, the visualizations presented here capture two decades during which New Jersey's politics firmly rested in the hands of Democratic-Republicans and mirrored larger trends in the new experiment of American democracy.
